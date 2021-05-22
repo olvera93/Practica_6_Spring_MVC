@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Tutorial Spring Boot</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="estilo.css" />
+    </head>
+    <body>
+        <h1> Agregando Usuario </h1>
+        <form action = "agregarUsuario" method = "post">
+            <labe for = "nombre"> Nombre: </labe>
+            <input type="text" name="nombre"><br>
+            <labe for = "apellido"> Apellido: </labe>
+            <input type="text" name="apellido"><br>
+
+            <labe for = "grupo"> Grupo: </labe>
+            <!--<input type="text" name="grupo">--> 
+            <select name="grupo">
+                <option th:each="grupos : ${grupo}"
+
+                    th:text="${grupos.nombre}"/>
+            </select>
+           	<br>    
+            <input type="submit" value="Aceptar">
+        </form>
+    </body>
+</html>
