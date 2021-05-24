@@ -8,7 +8,6 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
-import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 
 /**
  * 
@@ -24,8 +23,7 @@ import mx.uam.ayd.proyecto.presentacion.principal.ControlPrincipal;
 @SpringBootApplication
 public class ProyectoApplication {
 
-	@Autowired
-	ControlPrincipal controlPrincipal;
+	
 	
 	@Autowired
 	GrupoRepository grupoRepository;
