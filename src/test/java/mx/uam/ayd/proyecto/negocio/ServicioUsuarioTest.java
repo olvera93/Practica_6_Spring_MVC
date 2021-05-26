@@ -16,6 +16,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import mx.uam.ayd.proyecto.datos.GrupoRepository;
 import mx.uam.ayd.proyecto.datos.UsuarioRepository;
+import mx.uam.ayd.proyecto.dto.UsuarioDto;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 @ExtendWith(MockitoExtension.class)
@@ -55,7 +56,7 @@ class ServicioUsuarioTest {
 		// Prueba 1: corroborar que regresa una lista vacía si no hay usuarios en la BD
 		
 		// en este momento, la invocación a usuarioRepository.findAll() regresa una lista vacía
-		List <Usuario> usuarios = servicio.recuperaUsuarios();
+		List<UsuarioDto> usuarios = servicio.recuperaUsuarios();
 		
 		assertTrue(usuarios.isEmpty());
 

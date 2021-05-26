@@ -19,6 +19,5 @@ public interface GrupoRepository extends CrudRepository <Grupo, Long> {
 	 * @return
 	 */
 	public Grupo findByNombre(String nombre);
-	
 
 }

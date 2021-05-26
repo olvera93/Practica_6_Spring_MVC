@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.dto.UsuarioDto;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 import mx.uam.ayd.proyecto.presentacion.agregarUsuario.AgregarUsuarioController;
@@ -30,7 +31,7 @@ public class ListarUsuariosController {
 		
 		try {
 			//invocacion al servicio
-			List<Usuario> usuario = servicioUsuario.recuperaUsuarios();
+			List<UsuarioDto> usuario = servicioUsuario.recuperaUsuarios();
 			//Agregamos el usuario al modelo que se le pasa a la vista
 			model.addAttribute("usuario", usuario);
 			
@@ -43,7 +44,7 @@ public class ListarUsuariosController {
 			model.addAttribute("error", e.getMessage());
 			
 			// Redirigimos a la vista de error
-			return "vistaAgregarUsuario/AgregarUsuarioError";
+			return "vistaListarUsuarios/ListarUsuariosError";
 		}
 	}
 	

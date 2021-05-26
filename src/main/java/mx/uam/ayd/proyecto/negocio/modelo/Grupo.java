@@ -29,7 +29,7 @@ public class Grupo {
 
 	private String nombre;
 	
-	@OneToMany(targetEntity = Usuario.class, fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(targetEntity = Usuario.class, fetch = FetchType.LAZY, cascade = CascadeType.MERGE, orphanRemoval = true)
     @JoinColumn(name = "idGrupo")
 	private final List <Usuario> usuarios = new ArrayList <> ();
 	

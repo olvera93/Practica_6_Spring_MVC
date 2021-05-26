@@ -14,12 +14,14 @@
                     <th>ID</th>
                     <th>Nombre</th>
                     <th>Apellido</th>
+                    <th>Edad</th>
                 </tr>
 
                 <tr th:each="usuarios : ${usuario}">
                     <td th:text="${usuarios.idUsuario}"></td>
                     <td th:text="${usuarios.nombre}"></td>
-                    <td th:text="${usuarios.apellido}"></td>  
+                    <td th:text="${usuarios.apellido}"></td>
+                    <td th:text="${usuarios.edad}"></td>   
                   
                 </tr>
             </table>

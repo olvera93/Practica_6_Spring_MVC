@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import lombok.extern.slf4j.Slf4j;
+import mx.uam.ayd.proyecto.dto.UsuarioDto;
 import mx.uam.ayd.proyecto.negocio.ServicioGrupo;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
 import mx.uam.ayd.proyecto.negocio.modelo.Grupo;
@@ -73,14 +74,19 @@ public class AgregarUsuarioController {
 	public String postAgregarUsuario(
 			@RequestParam(value = "nombre", required = true) String nombre,
 			@RequestParam(value = "apellido", required = true) String apellido,
+			@RequestParam(value = "edad", required = true) int edad,
 			@RequestParam(value = "grupo", required = true) String grupo,
 			Model model) {
 			
-		log.info("Agregando Usuario: " + nombre + " " + apellido + " " + grupo); 
+		log.info("Agregando Usuario: " + nombre + " " + apellido + " " + edad + " " + grupo);
 		
+		
+
+
 		try {
+			Grupo grupo2 = servicioGrupo.recuperaGrupo(grupo);
 			//invocacion al servicio
-			Usuario usuario = servicioUsuario.agregaUsuario(nombre, apellido, grupo);
+			UsuarioDto usuario = servicioUsuario.agregaUsuario(UsuarioDto.creaDto(new Usuario(nombre, apellido, edad, grupo2)));
 			//Agregamos el usuario al modelo que se le pasa a la vista
 			model.addAttribute("usuario", usuario);
 			

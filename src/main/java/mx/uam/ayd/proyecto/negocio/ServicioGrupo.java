@@ -23,16 +23,18 @@ public class ServicioGrupo {
 	 * @return
 	 */
 	public List <Grupo> recuperaGrupos() {
-
-		
 		
 		List <Grupo> grupos = new ArrayList<>();
 		
 		for(Grupo grupo:grupoRepository.findAll()) {
 			grupos.add(grupo);
-		}
-				
+		}	
 		return grupos;
+	}
+	
+	public Grupo recuperaGrupo(String nombre) {
+		Grupo grupo = grupoRepository.findByNombre(nombre);
+		return grupo;
 	}
 
 }
