@@ -79,14 +79,18 @@ public class UsuarioRestController {
 	
 		// HACER
 		log.info("Buscando al usuario con id " + id);
-		
-		UsuarioDto usuario = servicioUsuario.retrieve(id);
-		
-		if(usuario != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(usuario);
-		} else {
+		try {
+			UsuarioDto usuario = servicioUsuario.retrieve(id);
+			
+			if(usuario != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(usuario);
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro usuario");
+			}
+		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro usuario");
 		}
+		
 	}
 	
 	
@@ -99,12 +103,16 @@ public class UsuarioRestController {
 	@PutMapping(path = "/usuarios/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <?> update(@PathVariable("id") @Valid Long id,@RequestBody UsuarioDto usuarioActualizado) {
 		
-		UsuarioDto usuario = servicioUsuario.actualizar(id, usuarioActualizado);
 		
-		if(usuario != null) {
-			return ResponseEntity.status(HttpStatus.OK).body(usuario);			
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se actualizo el usuario");
+		try {
+			UsuarioDto usuario = servicioUsuario.actualizar(id, usuarioActualizado);
+			if(usuario != null) {
+				return ResponseEntity.status(HttpStatus.OK).body(usuario);			
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se actualizo el usuario");
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro usuario");
 		}
 		
 	}
@@ -121,14 +129,20 @@ public class UsuarioRestController {
 	public ResponseEntity <?> delete(@PathVariable("id") @Valid Long id) {
 		
 		log.info("Buscando al usuario con id para eliminarlo: " + id);
-		UsuarioDto usuario = servicioUsuario.retrieve(id);
-		if (usuario != null) {
-			servicioUsuario.delete(id);
-			return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado correctamente");
+		
+		try {
+			UsuarioDto usuario = servicioUsuario.retrieve(id);
+			if (usuario != null) {
+				servicioUsuario.delete(id);
+				return ResponseEntity.status(HttpStatus.OK).body("Usuario eliminado correctamente");
 
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			} else {
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+			}
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro usuario");
 		}
+		
 	}
 
 

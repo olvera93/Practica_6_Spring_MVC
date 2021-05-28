@@ -87,8 +87,8 @@ public class ServicioUsuario {
 	 * @return usuario con el id
 	 */
 	public UsuarioDto retrieve(Long id){
-		log.info("Recuperando usuario con id: "+ id);
 		Optional<Usuario> optUsuario = usuarioRepository.findById(id);
+		log.info("Recuperando usuario con id: "+ id);
 		Usuario usuario = optUsuario.get();
 		return UsuarioDto.creaDto(usuario);
 		
