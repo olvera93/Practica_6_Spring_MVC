@@ -1,6 +1,9 @@
 package mx.uam.ayd.proyecto.dto;
 
 import javax.persistence.Entity;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import lombok.Data;
 import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
@@ -12,10 +15,19 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 @Data
 public class UsuarioDto {
 	
+	@NotNull
 	private long idUsuario;
+	
+	@NotEmpty
 	private String nombre;
+
+	@NotEmpty
 	private String apellido;
+	
+	@Positive
 	private int edad;
+	
+	@NotNull
 	private long grupo;
 	
 	/**

@@ -2,6 +2,8 @@ package mx.uam.ayd.proyecto.servicios;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -49,7 +51,7 @@ public class UsuarioRestController {
 	 * @return
 	 */
 	@PostMapping(path = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<UsuarioDto> creat(@RequestBody UsuarioDto nuevoUsuario) {
+	public ResponseEntity<UsuarioDto> creat(@RequestBody @Valid UsuarioDto nuevoUsuario) {
 		try {
 			UsuarioDto usuarioDto = servicioUsuario.agregaUsuario(nuevoUsuario);
 			return ResponseEntity.status(HttpStatus.CREATED).body(usuarioDto);
@@ -73,7 +75,7 @@ public class UsuarioRestController {
 	 * @return
 	 */
 	@GetMapping(path = "/usuarios/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <?> retrieve(@PathVariable("id") Long id) {
+	public ResponseEntity <?> retrieve(@PathVariable("id")  @Valid Long id) {
 	
 		// HACER
 		log.info("Buscando al usuario con id " + id);
@@ -95,7 +97,7 @@ public class UsuarioRestController {
 	 * @return
 	 */
 	@PutMapping(path = "/usuarios/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <?> update(@PathVariable("id") Long id,@RequestBody UsuarioDto usuarioActualizado) {
+	public ResponseEntity <?> update(@PathVariable("id") @Valid Long id,@RequestBody UsuarioDto usuarioActualizado) {
 		
 		UsuarioDto usuario = servicioUsuario.actualizar(id, usuarioActualizado);
 		
@@ -107,8 +109,16 @@ public class UsuarioRestController {
 		
 	}
 	
+	
+	/**
+	 * Método que permite eliminar a un usuario
+	 * Mediante el id
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(path = "/usuarios/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity <?> delete(@PathVariable("id") Long id) {
+	public ResponseEntity <?> delete(@PathVariable("id") @Valid Long id) {
 		
 		log.info("Buscando al usuario con id para eliminarlo: " + id);
 		UsuarioDto usuario = servicioUsuario.retrieve(id);
