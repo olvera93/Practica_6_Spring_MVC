@@ -15,7 +15,6 @@ import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 @Data
 public class UsuarioDto {
 	
-	@NotNull
 	private long idUsuario;
 	
 	@NotEmpty

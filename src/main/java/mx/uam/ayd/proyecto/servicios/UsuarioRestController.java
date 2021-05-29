@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import mx.uam.ayd.proyecto.dto.UsuarioDto;
 import mx.uam.ayd.proyecto.negocio.ServicioUsuario;
-import mx.uam.ayd.proyecto.negocio.modelo.Usuario;
 
 @RestController
 @RequestMapping("/v1") // Versionamiento
@@ -36,7 +38,10 @@ public class UsuarioRestController {
 	 * 
 	 * @return
 	 */
-	
+	@ApiOperation(value = "Recupera usuarios", notes = "Recupera a todos los usuarios")
+	@ApiResponses(value = {
+		@ApiResponse(code = 200, message = "Usuarios recuperados exitosamente"),
+		@ApiResponse(code = 500, message = "Error a recuperar usuarios", response = List.class)})
 	@GetMapping(path = "/usuarios", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <List<UsuarioDto>> retrieveAll() {
 		List <UsuarioDto> usuarios = servicioUsuario.recuperaUsuarios();
@@ -50,6 +55,10 @@ public class UsuarioRestController {
 	 * @param nuevoUsuario
 	 * @return
 	 */
+	@ApiOperation(value = "Agrega usuario", notes = "Se agrega a un usuario a través del DTO")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Usuario agregado exitosamente"),
+			@ApiResponse(code = 500, message = "Error al agregar usuario")})
 	@PostMapping(path = "/usuarios", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<UsuarioDto> creat(@RequestBody @Valid UsuarioDto nuevoUsuario) {
 		try {
@@ -74,6 +83,11 @@ public class UsuarioRestController {
 	 * @param id
 	 * @return
 	 */
+	@ApiOperation(value = "Recupera usuario", notes = "Recupera a un usuario mediante su ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Usuario encontrado exitosamente"),
+			@ApiResponse(code = 404, message = "No se encontro el usuario"),
+			@ApiResponse(code = 500, message = "Error al encontrar usuario")})
 	@GetMapping(path = "/usuarios/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <?> retrieve(@PathVariable("id")  @Valid Long id) {
 	
@@ -100,6 +114,11 @@ public class UsuarioRestController {
 	 * @param usuarioActualizado
 	 * @return
 	 */
+	@ApiOperation(value = "Modifica usuario", notes = "Modifica a un usuario mediante su ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Usuario modificado exitosamente"),
+			@ApiResponse(code = 404, message = "No se encontro el usuario"),
+			@ApiResponse(code = 500, message = "Error al modificar usuario")})
 	@PutMapping(path = "/usuarios/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity <?> update(@PathVariable("id") @Valid Long id,@RequestBody UsuarioDto usuarioActualizado) {
 		
@@ -125,7 +144,12 @@ public class UsuarioRestController {
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping(path = "/usuarios/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+	@ApiOperation(value = "Elimina usuario", notes = "Elimina a un usuario mediante su ID")
+	@ApiResponses(value = {
+			@ApiResponse(code = 200, message = "Usuario eliminado exitosamente"),
+			@ApiResponse(code = 404, message = "No se encontro el usuario"),
+			@ApiResponse(code = 500, message = "Error al eliminar al usuario")})
+	@DeleteMapping(path = "/usuarios/{id}")
 	public ResponseEntity <?> delete(@PathVariable("id") @Valid Long id) {
 		
 		log.info("Buscando al usuario con id para eliminarlo: " + id);
